@@ -1,5 +1,11 @@
 #pragma once
 
+// For uint8_t
+#include <stdint.h>
+
+// For cos, sin
+#include <math.h>
+
 #include "Constants.h"
 #include "Geometry.h"
 #include "Camera.h"

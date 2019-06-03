@@ -1,6 +1,9 @@
 #pragma once
 
+// For uint8_t
 #include <stdint.h>
+
+// For pgm_read_byte
 #include <avr/pgmspace.h>
 
 struct Texture
@@ -37,6 +40,17 @@ public:
 		const uint8_t bitMask = (1 << bitShift);
 
 		return ((this->texture[index] & bitMask) >> bitShift);
+	}
+
+	uint8_t getPixelBit(uint8_t x, uint8_t y) const
+	{
+		const uint8_t row = (y / 8);
+		const size_t index = ((row * this->getWidth()) + x);
+
+		const uint8_t bitShift = (y % 8);
+		const uint8_t bitMask = (1 << bitShift);
+
+		return (this->texture[index] & bitMask);
 	}
 
 	uint8_t setPixel(uint8_t x, uint8_t y, uint8_t value)
@@ -86,5 +100,16 @@ public:
 		const uint8_t bitMask = (1 << bitShift);
 
 		return ((pgm_read_byte(&this->texture[index]) & bitMask) >> bitShift);
+	}
+
+	uint8_t getPixelBit(uint8_t x, uint8_t y) const
+	{
+		const uint8_t row = (y / 8);
+		const size_t index = ((row * this->getWidth()) + x);
+
+		const uint8_t bitShift = (y % 8);
+		const uint8_t bitMask = (1 << bitShift);
+
+		return (pgm_read_byte(&this->texture[index]) & bitMask);
 	}
 };
